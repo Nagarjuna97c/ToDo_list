@@ -1,0 +1,74 @@
+{
+  "todos": [
+    {
+      "task": "Come up with your own design.",
+      "completed": true,
+      "id": 1
+    },
+    {
+      "task": "Should be responsive.",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "task": "Use json-server api for saving the todos. Even if I refresh the app, the updated data should be available.",
+      "completed": true,
+      "id": 3
+    },
+    {
+      "task": "Create todo functionality",
+      "completed": true,
+      "id": 4
+    },
+    {
+      "task": "Edit todo functionality(may be click on a todo show some modal to update it or turn your todo item into an input element to allow editing).",
+      "completed": true,
+      "id": 5
+    },
+    {
+      "task": "Delete todo functionality with some cool animation.",
+      "completed": true,
+      "id": 7
+    },
+    {
+      "task": "Marking todo as completed and not completed functionality.",
+      "completed": true,
+      "id": 8
+    },
+    {
+      "task": "Filtering todo functionality.",
+      "completed": false,
+      "id": 9
+    },
+    {
+      "task": "Prevent duplicate entries.",
+      "completed": true,
+      "id": 10
+    },
+    {
+      "task": "Retrieving todos from json-server with fetch/axios.",
+      "completed": true,
+      "id": 11
+    },
+    {
+      "task": "Proper error handling.",
+      "completed": false,
+      "id": 12
+    },
+    {
+      "task": "Loading state for the user.",
+      "completed": false,
+      "id": 13
+    },
+    {
+      "task": "Empty list message.",
+      "completed": false,
+      "id": 14
+    },
+    {
+      "task": "testing enter",
+      "completed": false,
+      "id": 15
+    }
+  ]
+}

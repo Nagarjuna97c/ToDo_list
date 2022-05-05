@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="task.js"></script>
+    <title>Todo List</title>
+  </head>
+  <body>
+    <nav class="nav-bar">
+      <h1 class="todo-title">ToDo</h1>
+      <div class="tabs-container">
+        <p>Ongoing</p>
+        <p>Completed</p>
+      </div>
+    </nav>
+    <div class="main-container">
+      <div class="input-container">
+        <input type="text" class="todo-input" />
+        <span class="add-todo">+</span>
+      </div>
+      <div class="search-container">
+        <input type="text" class="search-input" />
+      </div>
+      <div class="sort-container">
+        <div>
+          <label for="all">All</label>
+          <input
+            type="radio"
+            name="status"
+            id="all"
+            checked
+            onclick="getData()"
+          />
+        </div>
+        <div>
+          <label for="completed">Completed</label>
+          <input
+            type="radio"
+            name="status"
+            id="completed"
+            onclick="getData()"
+          />
+        </div>
+        <div>
+          <label for="ongoing">Ongoing</label>
+          <input type="radio" name="status" id="ongoing" onclick="getData()" />
+        </div>
+      </div>
+      <div class="todos-container"></div>
+    </div>
+    <div class="modal-container">
+      <div class="edit-todo-container">
+        <h3 class="edit-todo-task"></h3>
+        <div class="input-container">
+          <input
+            type="text"
+            class="todo-edit-input"
+            placeholder="Enter the updated todo"
+          />
+          <span class="add-todo" onclick="editTodo()">✅</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
