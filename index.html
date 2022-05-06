@@ -18,43 +18,32 @@
     </nav>
     <div class="main-container">
       <div class="input-container">
-        <input type="text" class="todo-input" />
+        <input
+          type="text"
+          class="todo-input"
+          placeholder="Enter ToDo here..."
+        />
         <span class="add-todo">+</span>
       </div>
       <div class="search-container">
-        <input type="text" class="search-input" />
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search a ToDo here..."
+        />
       </div>
       <div class="sort-container">
-        <div>
-          <label for="all">All</label>
-          <input
-            type="radio"
-            name="status"
-            id="all"
-            checked
-            onclick="getData()"
-          />
-        </div>
-        <div>
-          <label for="completed">Completed</label>
-          <input
-            type="radio"
-            name="status"
-            id="completed"
-            onclick="getData()"
-          />
-        </div>
-        <div>
-          <label for="ongoing">Ongoing</label>
-          <input type="radio" name="status" id="ongoing" onclick="getData()" />
-        </div>
+        <div class="sort-option">All</div>
+        <div class="sort-option">Ongoing</div>
+        <div class="sort-option">Completed</div>
       </div>
       <div class="todos-container"></div>
+      <div class="scroll-target"></div>
     </div>
     <div class="modal-container">
       <div class="edit-todo-container">
         <h3 class="edit-todo-task"></h3>
-        <div class="input-container">
+        <div class="edit-input-container">
           <input
             type="text"
             class="todo-edit-input"

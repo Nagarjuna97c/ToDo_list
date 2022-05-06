@@ -1,26 +1,24 @@
-let todosList = [];
-let filteredList = [];
-
 const addTodo = document.querySelector(".add-todo");
 const todosContainer = document.querySelector(".todos-container");
 const todoInput = document.querySelector(".todo-input");
 const searchInput = document.querySelector(".search-input");
-const allSelected = document.getElementById("all");
-const ongoingSelected = document.getElementById("ongoing");
-const completedSelected = document.getElementById("completed");
+
+let todosList = [];
+let filteredList = [];
+let selectedSort = "";
+let completed = false;
 
 // Get and Filter Data
 let filterData;
 
 let getData = async function () {
   let data;
-  if (allSelected.checked) {
+  if (selectedSort === "") {
     data = await fetch("http://localhost:3000/todos");
-  } else if (ongoingSelected.checked) {
-    data = await fetch("http://localhost:3000/todos?completed=false");
-  } else if (completedSelected.checked) {
-    data = await fetch("http://localhost:3000/todos?completed=true");
+  } else {
+    data = await fetch(`http://localhost:3000/todos?completed=${completed}`);
   }
+
   todosList = await data.json();
   filteredList = todosList.filter((each) =>
     each.task.includes(searchInput.value)
@@ -36,33 +34,69 @@ let getData = async function () {
 
 getData();
 
+// Function to select sort
+function setSort(event) {
+  let sortOption = event.target.textContent;
+  document.querySelectorAll(".sort-option").forEach((each) => {
+    each.style.backgroundColor = "#4e4ec8";
+  });
+  event.target.style.backgroundColor = "#11a511";
+  switch (sortOption) {
+    case "All":
+      selectedSort = "";
+      break;
+    case "Ongoing":
+      selectedSort = "ongoing";
+      completed = false;
+      break;
+    default:
+      selectedSort = "completed";
+      completed = true;
+      break;
+  }
+}
+
+// Add Event Listener to sort items
+document.querySelectorAll(".sort-option").forEach((each) => {
+  each.addEventListener("click", setSort);
+  each.addEventListener("click", getData);
+});
+
+document.querySelector(".sort-option").style.backgroundColor = "#11a511";
+
+// Display ToDo Item
+function displayTodo(todoItem, fadeIn = "") {
+  console.log(todoItem);
+  const todo = `<div class= 'todo-task ${fadeIn}' uniqueId=${todoItem.id}>
+      <input type='checkbox'  ${
+        todoItem.completed ? "checked" : ""
+      } onchange='changeTodoStatus()'/>
+      <h3 class='task-name'>${todoItem.task}</h3>
+      <button class='todo-button' onclick='openEditModal()'>Edit</button>
+      <button class='todo-button' onclick='deleteToDo()'>delete</button>
+    </div>`;
+  todosContainer.insertAdjacentHTML("beforeend", todo);
+}
+
 // Display Todo Items
 
 const displayTodos = function () {
   todosContainer.innerHTML = "";
 
-  filteredList.forEach((i) => {
-    const todo = `<div class="todo-task" uniqueId=${i.id}>
-      <input type='checkbox'  ${
-        i.completed ? "checked" : ""
-      } onchange='changeTodoStatus()'/>
-      <h3 class='task-name'>${i.task}</h3>
-      <button class='todo-button' onclick='openEditModal()'>Edit</button>
-      <button class='todo-button' onclick='deleteToDo()'>delete</button>
-    </div>`;
-    todosContainer.insertAdjacentHTML("beforeend", todo);
-  });
+  filteredList.forEach((todo) => displayTodo(todo));
 };
 
 // Adding ToDo Item to ToDo List
 
-function addTodoTask() {
+const addTodoTask = async function () {
   const todoExists = todosList.find((each) => each.task === todoInput.value);
   if (todoExists !== undefined) return;
-  const stringifiedTodoItem = JSON.stringify({
+  const todo = {
     task: todoInput.value,
     completed: false,
-  });
+  };
+
+  const stringifiedTodoItem = JSON.stringify(todo);
 
   const options = {
     method: "POST",
@@ -73,16 +107,21 @@ function addTodoTask() {
     body: stringifiedTodoItem,
   };
 
-  fetch("http://localhost:3000/todos", options);
-
   todoInput.value = "";
-  todosContainer.innerHTML = "";
-  displayTodos();
-}
+  const elements = document.querySelectorAll(".todo-task");
+  document
+    .querySelector(".scroll-target")
+    .scrollIntoView({ behavior: "smooth" });
+  if (!completed) {
+    displayTodo(todo, "fade-in");
+  }
+
+  await fetch("http://localhost:3000/todos", options);
+};
 
 addTodo.addEventListener("click", addTodoTask);
 todoInput.addEventListener("keyup", (event) => {
-  if (event.key === enter) {
+  if (event.key === "Enter") {
     addTodoTask();
   }
 });
