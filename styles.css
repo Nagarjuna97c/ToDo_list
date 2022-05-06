@@ -158,3 +158,26 @@
     opacity: 1;
   }
 }
+
+.fade-out {
+  animation: moveOut 2s ease-out;
+  transform: translateX(+120%);
+}
+@keyframes moveOut {
+  /* from {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(+100%);
+    opacity: 0;
+  } */
+
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(+100%);
+  }
+}

@@ -28,7 +28,6 @@ let getData = async function () {
     filteredList = todosList.filter((each) => each.task.includes(filterInput));
     displayTodos();
   };
-
   displayTodos();
 };
 
@@ -66,7 +65,6 @@ document.querySelector(".sort-option").style.backgroundColor = "#11a511";
 
 // Display ToDo Item
 function displayTodo(todoItem, fadeIn = "") {
-  console.log(todoItem);
   const todo = `<div class= 'todo-task ${fadeIn}' uniqueId=${todoItem.id}>
       <input type='checkbox'  ${
         todoItem.completed ? "checked" : ""
@@ -108,15 +106,18 @@ const addTodoTask = async function () {
   };
 
   todoInput.value = "";
-  const elements = document.querySelectorAll(".todo-task");
-  document
-    .querySelector(".scroll-target")
-    .scrollIntoView({ behavior: "smooth" });
+
+  todo["id"] = todosList.length + 2;
+
   if (!completed) {
+    document
+      .querySelector(".scroll-target")
+      .scrollIntoView({ behavior: "smooth" });
     displayTodo(todo, "fade-in");
   }
 
-  await fetch("http://localhost:3000/todos", options);
+  fetch("http://localhost:3000/todos", options);
+  todosList.push(todo);
 };
 
 addTodo.addEventListener("click", addTodoTask);
@@ -154,7 +155,8 @@ function changeTodoStatus(event) {
 
 //deleteToDo Item in ToDo List
 function deleteToDo(event) {
-  const todoId = this.event.target.closest("div").getAttribute("uniqueId");
+  const todo = this.event.target.closest("div");
+  const todoId = todo.getAttribute("uniqueId");
 
   const options = {
     method: "DELETE",
@@ -164,10 +166,18 @@ function deleteToDo(event) {
     },
   };
 
-  fetch(`http://localhost:3000/todos/${todoId}`, options);
+  todo.classList.add("fade-out");
+  setTimeout(function () {
+    todo.remove();
+  }, 2000);
 
-  todosContainer.innerHTML = "";
-  displayTodos();
+  todosList = fetch(`http://localhost:3000/todos/${todoId}`, options);
+
+  let id = 1;
+  document.querySelectorAll(".todo-task").forEach((each) => {
+    each.setAttribute("uniqueId", id);
+    ++id;
+  });
 }
 
 // Edit ToDo Task

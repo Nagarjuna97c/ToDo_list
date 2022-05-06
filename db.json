@@ -59,16 +59,6 @@
       "task": "Loading state for the user.",
       "completed": false,
       "id": 13
-    },
-    {
-      "task": "Empty list message.",
-      "completed": false,
-      "id": 14
-    },
-    {
-      "task": "hello",
-      "completed": false,
-      "id": 15
     }
   ]
 }
