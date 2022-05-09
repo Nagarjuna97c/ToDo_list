@@ -7,7 +7,7 @@
     },
     {
       "task": "Should be responsive.",
-      "completed": false,
+      "completed": true,
       "id": 2
     },
     {
@@ -37,7 +37,7 @@
     },
     {
       "task": "Filtering todo functionality.",
-      "completed": false,
+      "completed": true,
       "id": 9
     },
     {
@@ -57,8 +57,13 @@
     },
     {
       "task": "Loading state for the user.",
-      "completed": false,
+      "completed": true,
       "id": 13
+    },
+    {
+      "task": "hi",
+      "completed": true,
+      "id": 14
     }
   ]
 }

@@ -10,11 +10,7 @@
   </head>
   <body>
     <nav class="nav-bar">
-      <h1 class="todo-title">ToDo</h1>
-      <div class="tabs-container">
-        <p>Ongoing</p>
-        <p>Completed</p>
-      </div>
+      <h1 class="todo-title">ToDo List</h1>
     </nav>
     <div class="main-container">
       <div class="input-container">
@@ -23,8 +19,9 @@
           class="todo-input"
           placeholder="Enter ToDo here..."
         />
-        <span class="add-todo">+</span>
+        <button class="add-todo">+</button>
       </div>
+      <p class="todo-input-error"></p>
       <div class="search-container">
         <input
           type="text"
@@ -43,13 +40,16 @@
     <div class="modal-container">
       <div class="edit-todo-container">
         <h3 class="edit-todo-task"></h3>
-        <div class="edit-input-container">
-          <input
-            type="text"
-            class="todo-edit-input"
-            placeholder="Enter the updated todo"
-          />
-          <span class="add-todo" onclick="editTodo()">✅</span>
+        <div class="edit-container">
+          <div class="edit-input-container">
+            <input
+              type="text"
+              class="todo-edit-input"
+              placeholder="Enter the updated todo"
+            />
+            <button class="add-todo" onclick="editTodo()">✅</button>
+          </div>
+          <p class="todo-error"></p>
         </div>
       </div>
     </div>
