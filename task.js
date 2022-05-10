@@ -94,7 +94,8 @@ function displayTodos() {
   todosContainer.innerHTML = "";
   if (todosList.length == 0) {
     todosContainer.classList.add("center-content");
-    todosContainer.innerHTML = `<h1 style="color:red;">There are no existing todos.😓</h1>`;
+    const innerHTML = `<h1 class='empty-todo' style="color:red;">There are no existing todos.😓</h1>`;
+    todosContainer.insertAdjacentHTML("beforeend", innerHTML);
   } else {
     todosContainer.classList.remove("center-content");
   }
@@ -108,6 +109,7 @@ const addTodoTask = async function () {
 
   if (emptyTodo !== null) {
     emptyTodo.remove();
+    todosContainer.classList.remove("center-content");
   }
   const inputError = document.querySelector(".todo-input-error");
   const todoExists = todosList.find((each) => each.task === todoInput.value);
