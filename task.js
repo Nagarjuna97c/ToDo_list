@@ -92,12 +92,23 @@ function displayTodo(todoItem, fadeIn = "") {
 
 function displayTodos() {
   todosContainer.innerHTML = "";
+  if (todosList.length == 0) {
+    todosContainer.classList.add("center-content");
+    todosContainer.innerHTML = `<h1 style="color:red;">There are no existing todos.😓</h1>`;
+  } else {
+    todosContainer.classList.remove("center-content");
+  }
   filteredList.forEach((todo) => displayTodo(todo));
 }
 
 // Adding ToDo Item to ToDo List
 
 const addTodoTask = async function () {
+  const emptyTodo = document.querySelector(".empty-todo");
+
+  if (emptyTodo !== null) {
+    emptyTodo.remove();
+  }
   const inputError = document.querySelector(".todo-input-error");
   const todoExists = todosList.find((each) => each.task === todoInput.value);
 
@@ -128,7 +139,11 @@ const addTodoTask = async function () {
   };
 
   todoInput.value = "";
-  todo["id"] = todosList[todosList.length - 1].id + 1;
+  if (todosList.length > 0) {
+    todo["id"] = todosList[todosList.length - 1].id + 1;
+  } else {
+    todo["id"] = 1;
+  }
 
   if (!completed) {
     document
@@ -160,10 +175,6 @@ function changeTodoStatus(event) {
     completed: !todoItem.completed,
     id: todoItem.id,
   };
-
-  // todo
-  //   .querySelector(".status-display")
-  //   .setAttribute("checked", !todoItem.completed);
 
   todo.classList.remove("completed-background");
 
@@ -214,7 +225,14 @@ function deleteToDo(event) {
 
   fetch(`http://localhost:3000/todos/${todoId}`, options);
   todosList = todosList.filter((each) => each.id !== Number(todoId));
-  console.log(todosList);
+
+  if (todosList.length == 0) {
+    todosContainer.classList.add("center-content");
+    const innerHTML = `<h1 class='empty-todo' style="color:red;">There are no existing todos.😓</h1>`;
+    todosContainer.insertAdjacentHTML("beforeend", innerHTML);
+  } else {
+    todosContainer.classList.remove("center-content");
+  }
 }
 
 // Edit ToDo Task
