@@ -14,9 +14,11 @@ let getTodosList = async function () {
   todosContainer.innerHTML = `<div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
   todosContainer.classList.add("center-spinner");
   if (selectedSort === "") {
-    data = await fetch("http://localhost:3000/todos");
+    data = await fetch("https://nagarjuna-todo-list.herokuapp.com/todos");
   } else {
-    data = await fetch(`http://localhost:3000/todos?completed=${completed}`);
+    data = await fetch(
+      `https://nagarjuna-todo-list.herokuapp.com/todos?completed=${completed}`
+    );
   }
   todosList = await data.json();
   todosContainer.classList.remove("center-spinner");
@@ -154,7 +156,7 @@ const addTodoTask = async function () {
     displayTodo(todo, "fade-in");
   }
 
-  fetch("http://localhost:3000/todos", options);
+  fetch("https://nagarjuna-todo-list.herokuapp.com/todos", options);
   todosList.push(todo);
 };
 
@@ -204,7 +206,7 @@ function changeTodoStatus(event) {
     body: JSON.stringify(modifiedTodoItem),
   };
 
-  fetch(`http://localhost:3000/todos/${todoId}`, options);
+  fetch(`https://nagarjuna-todo-list.herokuapp.com/todos/${todoId}`, options);
 }
 
 //deleteToDo Item in ToDo List
@@ -225,7 +227,7 @@ function deleteToDo(event) {
     todo.remove();
   }, 2000);
 
-  fetch(`http://localhost:3000/todos/${todoId}`, options);
+  fetch(`https://nagarjuna-todo-list.herokuapp.com/todos/${todoId}`, options);
   todosList = todosList.filter((each) => each.id !== Number(todoId));
 
   if (todosList.length == 0) {
@@ -289,7 +291,7 @@ function openEditModal() {
     console.log(todo.querySelector(".task-name"));
     todo.querySelector(".task-name").textContent = editInputValue;
 
-    fetch(`http://localhost:3000/todos/${todoId}`, options);
+    fetch(`https://nagarjuna-todo-list.herokuapp.com/todos/${todoId}`, options);
 
     todosList = todosList.map((each) => {
       if (each.id === todoItem.id) {
